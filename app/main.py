@@ -8,6 +8,8 @@ to manage service names and genre translations.
 """
 
 import webbrowser
+from components import composite_text, text_field
+from style import COLORS
 from constants import ORDERED_SERVICES, GENRE_MAPPING
 from helpers import find_offers, find_titles
 import flet as ft
@@ -27,12 +29,6 @@ class App:
         self.search_bar = {}
         self.page = None
         self.offers = None
-        self.border_radius = 15
-        self.black = "#000000"
-        self.dark_grey = "#050505"
-        self.red = "#E50914"
-        self.white = "#FFFFFF"
-        self.light_grey = "#9F9F9F"
 
     def movie_click(self, e):
         """
@@ -86,15 +82,33 @@ class App:
         self.page.window_height = 800
         self.page.window_resizable = False
         self.page.window_frameless = True
-        self.page.bgcolor = self.black
+        self.page.bgcolor = COLORS["black"]
         self.page.scroll = ft.ScrollMode.AUTO
         self.create_app_bar()
         self.create_search_bar()
 
     def create_app_bar(self):
+        """
+        Create the application bar or header for the GUI.
+
+        This function constructs an application bar containing a back button (if offers are
+        available), a logo, and a close button. The logo is draggable to allow the user to
+        move the window.
+        """
+        back_button = (
+            [
+                ft.IconButton(
+                    ft.icons.ARROW_BACK,
+                    on_click=lambda _: self.recreate_main_page(None),
+                )
+            ]
+            if self.offers
+            else []
+        )
         self.page.add(
             ft.Row(
-                [
+                back_button
+                + [
                     ft.WindowDragArea(
                         ft.Container(
                             ft.Image(
@@ -126,53 +140,30 @@ class App:
         using `ft.Container` with padding and background color. The container
         is then added to the Flet page using `self.page.add`.
         """
-        self.search_bar["movie_input"] = ft.TextField(
-            label="Movie Title",
-            value=(
-                self.search_bar["movie_input"].value
-                if "movie_input" in self.search_bar
-                else None
-            ),
-            width=350,
-            border_radius=0,
-            color=self.white,
-            bgcolor=self.black,
-            border_color=self.white,
-        )
-        self.search_bar["country"] = ft.TextField(
-            label="Country Code",
-            value=(
-                self.search_bar["country"].value
-                if "country" in self.search_bar
-                else "US"
-            ),
-            width=200,
-            border_radius=0,
-            color=self.white,
-            bgcolor=self.black,
-            border_color=self.white,
-        )
-        self.search_bar["language"] = ft.TextField(
-            label="Language Code",
-            value=(
-                self.search_bar["language"].value
-                if "language" in self.search_bar
-                else "en"
-            ),
-            width=200,
-            border_radius=0,
-            color=self.white,
-            bgcolor=self.black,
-            border_color=self.white,
-        )
+        # Movie Title
+        val = self.search_bar.get("movie_input", None)
+        val = None if val is None else val.value
+        label = "Movie Title"
+        self.search_bar["movie_input"] = text_field(label, val, 350)
+        # Country code
+        val = self.search_bar.get("country", None)
+        val = "US" if val is None else val.value
+        label = "Country Code"
+        self.search_bar["country"] = text_field(label, val)
+        # Language
+        val = self.search_bar.get("language", None)
+        val = "en" if val is None else val.value
+        label = "Language Code"
+        self.search_bar["language"] = text_field(label, val)
+        # Search Icon
         self.search_bar["icon"] = ft.IconButton(
             icon=ft.icons.SEARCH,
-            icon_color=self.white,
+            icon_color=COLORS["white"],
             on_click=self.btn_click,
-            bgcolor=self.black,
+            bgcolor=COLORS["black"],
             style=ft.ButtonStyle(
                 side={
-                    ft.MaterialState.DEFAULT: ft.BorderSide(1, self.white),
+                    ft.MaterialState.DEFAULT: ft.BorderSide(1, COLORS["white"]),
                 },
                 shape={
                     ft.MaterialState.DEFAULT: ft.RoundedRectangleBorder(radius=0),
@@ -185,8 +176,7 @@ class App:
                 self.search_bar.values(), alignment=ft.MainAxisAlignment.CENTER
             ),
             padding=ft.padding.only(bottom=80, top=20),
-            bgcolor=self.black,
-            border_radius=self.border_radius,
+            bgcolor=COLORS["black"],
         )
         self.page.add(search_bar)
 
@@ -239,6 +229,7 @@ class App:
             repeat=ft.ImageRepeat.NO_REPEAT,
             border_radius=ft.border_radius.all(10),
         )
+        genres = ", ".join(GENRE_MAPPING.get(g, g) for g in movie.genres)
         column = ft.Column(
             [
                 ft.Container(
@@ -246,84 +237,26 @@ class App:
                         movie.title,
                         size=40,
                         weight=ft.FontWeight.W_900,
-                        color=self.white,
+                        color=COLORS["white"],
                     ),
                     padding=ft.padding.only(bottom=10, top=10),
                 ),
-                ft.Text(
-                    "Description: ",
-                    size=15,
-                    weight=ft.FontWeight.BOLD,
-                    color=self.white,
-                    spans=[
-                        ft.TextSpan(
-                            movie.short_description,
-                            ft.TextStyle(
-                                size=14,
-                                color=self.light_grey,
-                                weight=ft.FontWeight.W_100,
-                            ),
-                        )
-                    ],
-                ),
-                ft.Text(
-                    "Release Date: ",
-                    size=15,
-                    weight=ft.FontWeight.BOLD,
-                    color=self.white,
-                    spans=[
-                        ft.TextSpan(
-                            movie.release_date,
-                            ft.TextStyle(
-                                size=14,
-                                color=self.light_grey,
-                                weight=ft.FontWeight.W_100,
-                            ),
-                        )
-                    ],
-                ),
-                ft.Text(
-                    "Length: ",
-                    size=15,
-                    weight=ft.FontWeight.BOLD,
-                    color=self.white,
-                    spans=[
-                        ft.TextSpan(
-                            movie.runtime_minutes,
-                            ft.TextStyle(
-                                size=14,
-                                color=self.light_grey,
-                                weight=ft.FontWeight.W_100,
-                            ),
-                        )
-                    ],
-                ),
-                ft.Text(
-                    "Genres: ",
-                    size=15,
-                    weight=ft.FontWeight.BOLD,
-                    color=self.white,
-                    spans=[
-                        ft.TextSpan(
-                            ", ".join(GENRE_MAPPING.get(g, g) for g in movie.genres),
-                            ft.TextStyle(
-                                size=14,
-                                color=self.light_grey,
-                                weight=ft.FontWeight.W_100,
-                            ),
-                        )
-                    ],
-                ),
+                composite_text("Description: ", movie.short_description),
+                composite_text("Release Date: ", movie.release_date),
+                composite_text("Length: ", movie.runtime_minutes),
+                composite_text("Genres: ", genres),
                 ft.Container(
                     ft.IconButton(
                         key=movie.entry_id,
                         icon=ft.icons.LIVE_TV,
-                        icon_color=self.white,
+                        icon_color=COLORS["white"],
                         on_click=self.movie_click,
-                        bgcolor=self.dark_grey,
+                        bgcolor=COLORS["dark_grey"],
                         style=ft.ButtonStyle(
                             side={
-                                ft.MaterialState.DEFAULT: ft.BorderSide(1, self.white),
+                                ft.MaterialState.DEFAULT: ft.BorderSide(
+                                    1, COLORS["white"]
+                                ),
                             },
                             shape={
                                 ft.MaterialState.DEFAULT: ft.RoundedRectangleBorder(
@@ -348,7 +281,7 @@ class App:
         ]
         return ft.Card(
             ft.ResponsiveRow(inner_components),
-            color=self.dark_grey,
+            color=COLORS["dark_grey"],
             shape=ft.RoundedRectangleBorder(radius=0),
         )
 
@@ -380,96 +313,90 @@ class App:
         Finally, the information card containing the data table with offer details is added to the
         page, and the page is updated to reflect the changes.
         """
-        self.clear_page_controls(keep=1)
-        info_card = ft.Column(
-            controls=[
-                ft.IconButton(
-                    icon=ft.icons.ARROW_BACK, on_click=self.recreate_main_page
-                ),
-                ft.DataTable(
-                    heading_text_style=ft.TextStyle(
-                        weight=ft.FontWeight.W_900, color=self.white
-                    ),
-                    data_text_style=ft.TextStyle(
-                        weight=ft.FontWeight.W_400, color=self.white
-                    ),
-                    vertical_lines=ft.BorderSide(width=1.5),
-                    divider_thickness=1.3,
-                    border=ft.Border(
-                        top=ft.BorderSide(width=2),
-                        bottom=ft.BorderSide(width=2),
-                        left=ft.BorderSide(width=2),
-                        right=ft.BorderSide(width=2),
-                    ),
-                    sort_ascending=True,
-                    sort_column_index=0,
-                    columns=[
-                        ft.DataColumn(ft.Text("Country")),
-                    ]
-                    + [ft.DataColumn(ft.Text(service)) for service in ORDERED_SERVICES],
-                    rows=[
-                        ft.DataRow(
-                            cells=[ft.DataCell(ft.Text(country))]
-                            + [
-                                ft.DataCell(
-                                    ft.FloatingActionButton(
+        self.clear_page_controls(0)
+        self.create_app_bar()
+        info_card = ft.DataTable(
+            heading_text_style=ft.TextStyle(
+                weight=ft.FontWeight.W_900, color=COLORS["white"]
+            ),
+            data_text_style=ft.TextStyle(
+                weight=ft.FontWeight.W_400, color=COLORS["white"]
+            ),
+            divider_thickness=0.5,
+            sort_ascending=True,
+            sort_column_index=0,
+            columns=[
+                ft.DataColumn(ft.Text("Country")),
+            ]
+            + [ft.DataColumn(ft.Text(service)) for service in ORDERED_SERVICES],
+            vertical_lines=ft.BorderSide(width=2),
+            rows=[
+                ft.DataRow(
+                    cells=[ft.DataCell(ft.Text(country))]
+                    + [
+                        ft.DataCell(
+                            content=ft.Container(
+                                alignment=ft.alignment.center,
+                                content=(
+                                    ft.IconButton(
                                         key=self.offers[country][service]["url"],
                                         content=ft.Row(
                                             [
-                                                ft.Icon(ft.icons.WEB),
-                                                ft.Text("Visit"),
+                                                ft.Icon(
+                                                    ft.icons.WEB, color=COLORS["yellow"]
+                                                ),
+                                                ft.Text(
+                                                    "Visit",
+                                                    color=COLORS["yellow"],
+                                                    size=12,
+                                                ),
                                             ],
                                             alignment="center",
-                                            spacing=15,
                                         ),
                                         on_click=self.open_website,
-                                        bgcolor=ft.colors.AMBER_300,
-                                        shape=ft.RoundedRectangleBorder(radius=5),
-                                        width=120,
-                                        mini=True,
+                                        style=ft.ButtonStyle(
+                                            shape={
+                                                ft.MaterialState.DEFAULT: ft.RoundedRectangleBorder(
+                                                    radius=0
+                                                ),
+                                            },
+                                            bgcolor=COLORS["medium_grey"],
+                                        ),
+                                        width=110,
                                     )
                                     if self.offers[country][service]
                                     and self.offers[country][service]["price"] is None
                                     else (
-                                        ft.FloatingActionButton(
+                                        ft.IconButton(
+                                            padding=0,
                                             key=self.offers[country][service]["url"],
-                                            content=ft.Row(
-                                                [
-                                                    ft.Icon(ft.icons.PRICE_CHANGE),
-                                                    ft.Text(
-                                                        self.offers[country][service][
-                                                            "price"
-                                                        ]
-                                                    ),
-                                                ],
-                                                alignment="center",
-                                                spacing=10,
+                                            content=ft.Text(
+                                                self.offers[country][service]["price"],
+                                                size=12,
+                                                color=COLORS["cyan"],
                                             ),
                                             on_click=self.open_website,
-                                            bgcolor=ft.colors.CYAN_400,
-                                            shape=ft.RoundedRectangleBorder(radius=5),
-                                            width=max(
-                                                120,
-                                                len(
-                                                    self.offers[country][service][
-                                                        "price"
-                                                    ]
-                                                )
-                                                * 15,
+                                            style=ft.ButtonStyle(
+                                                shape={
+                                                    ft.MaterialState.DEFAULT: ft.RoundedRectangleBorder(
+                                                        radius=0
+                                                    ),
+                                                },
+                                                bgcolor=COLORS["medium_grey"],
                                             ),
-                                            mini=True,
+                                            width=110,
                                         )
                                         if self.offers[country][service]
                                         else ft.Text("-")
                                     )
-                                )
-                                for service in ORDERED_SERVICES
-                            ],
+                                ),
+                            )
                         )
-                        for country in sorted(self.offers.keys())
+                        for service in ORDERED_SERVICES
                     ],
-                ),
-            ]
+                )
+                for country in sorted(self.offers.keys())
+            ],
         )
         self.page.add(info_card)
         self.page.update()
@@ -485,6 +412,7 @@ class App:
         - Calls functions to potentially rebuild search bar elements and movie card displays.
         - Updates the page to reflect the changes.
         """
+        self.offers = None
         self.clear_page_controls(0)
         self.create_app_bar()
         self.create_search_bar()

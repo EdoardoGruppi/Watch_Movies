@@ -72,11 +72,12 @@ def complete_dict(dictionary: dict) -> dict:
     Returns:
         A processed dictionary.
     """
-    all_services = set.union(INCLUDED_SERVICES, DUPLICATED_SERVICE)
+    all_services = set.union(set(INCLUDED_SERVICES.keys()), DUPLICATED_SERVICE)
     for k, v in dictionary.items():
         dictionary[k] = {key: v[key] if key in v else None for key in all_services}
         dictionary[k]["Amazon Video"] = (
             dictionary[k]["Amazon Video"] or dictionary[k]["Amazon Prime Video"]
         )
         del dictionary[k]["Amazon Prime Video"]
+        dictionary[k] = {INCLUDED_SERVICES[k]: v for k, v in dictionary[k].items()}
     return dictionary

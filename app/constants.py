@@ -50,14 +50,14 @@ This can be useful for standardizing genre information in movie data.
 """
 
 INCLUDED_SERVICES = {
-    "Amazon Video",
-    "Netflix",
-    "Apple TV",
-    "Google Play Movies",
-    "Disney Plus",
-    "Movistar Plus",
-    "Rakuten TV",
-    "Microsoft Store",
+    "Amazon Video": "Prime Video",
+    "Netflix": "Netflix",
+    "Apple TV": "Apple TV",
+    "Google Play Movies": "Google Play",
+    "Disney Plus": "Disney Plus",
+    "Movistar Plus": "Movistar Plus",
+    "Rakuten TV": "Rakuten TV",
+    "Microsoft Store": "Microsoft Store",
 }
 """
 This set contains the names of streaming services that should be considered during processing.
@@ -65,14 +65,14 @@ This can be used to filter or focus on specific services when searching for movi
 """
 
 ORDERED_SERVICES = [
-    "Amazon Video",
     "Netflix",
+    "Prime Video",
     "Apple TV",
     "Disney Plus",
-    "Microsoft Store",
     "Rakuten TV",
-    "Google Play Movies",
     "Movistar Plus",
+    "Google Play",
+    "Microsoft Store",
 ]
 """
 This list contains the names of streaming services in the desired order for display purposes.
