@@ -1,0 +1,50 @@
+image:
+  - Visual Studio 2019
+  - macOS
+  - Ubuntu
+
+skip_branch_with_pr: true
+stack: python
+
+install:
+  - pip install -r .app/requirements.txt
+
+build_script:
+  - flet pack .app/main.py --name watch-movies --icon .app/assets/icon.png --product-name watch-movies --product-version "1.0.1" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+
+test: off
+
+# Publish artifacts to GitHub Releases on "tag" builds
+deploy:
+  provider: GitHub
+  auth_token: $(GITHUB_TOKEN)
+  on:
+    APPVEYOR_REPO_TAG: true
+
+# Windows package
+for:
+  - matrix:
+      only:
+        - image: Visual Studio 2019
+    after_build:
+      - 7z a watch-movies-windows.zip %CD%\dist\*.exe
+    artifacts:
+      - path: watch-movies-windows.zip
+
+  # macOS package
+  - matrix:
+      only:
+        - image: macOS
+    after_build:
+      - tar -czvf watch-movies-macos.tar.gz -C dist watch-movies.app
+    artifacts:
+      - path: watch-movies-macos.tar.gz
+
+  # Linux package
+  - matrix:
+      only:
+        - image: Ubuntu
+    after_build:
+      - tar -czvf watch-movies-linux.tar.gz -C dist watch-movies
+    artifacts:
+      - path: watch-movies-linux.tar.gz
