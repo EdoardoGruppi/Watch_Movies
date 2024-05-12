@@ -8,6 +8,8 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ${{ matrix.image }}
+    permissions:
+      contents: write
 
     strategy:
       matrix:
