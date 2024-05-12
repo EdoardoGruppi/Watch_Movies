@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         image: ["windows-latest", "macos-latest", "ubuntu-latest"]
+        new_version: ["1.0.1"]
 
     steps:
       - name: Checkout code
@@ -51,3 +52,19 @@ jobs:
           path: |
             ${{ github.workspace }}/*.zip
             ${{ github.workspace }}/*.tar.gz
+            
+      - name: Create and publish release
+        id: create_release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          allowUpdates: true
+          replacesArtifacts: true
+          tag: v${{ matrix.new_version }}
+          name: Notepads v${{ matrix.new_version }}
+          body: "New release"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts:
+             /Users/runner/work/Watch_Movies/Watch_Movies/watch-movies-macos.tar.gz
+             D:\a\Watch_Movies\Watch_Movies\watch-movies-windows.zip
+             /home/runner/work/Watch_Movies/Watch_Movies/watch-movies-linux.tar.gz
+
