@@ -30,7 +30,9 @@ jobs:
 
       - name: Archive artifacts
         run: |
-          if [ "${{ matrix.image }}" == 'windows-latest' ]; then
+          if [ "${{ matrix.image }}" == 'aaaa' ]; then
+            ls $GITHUB_WORKSPACE
+          elif [ "${{ matrix.image }}" == 'windows-latest' ]; then
             7z a watch-movies-windows.zip dist/*.exe
             ls $GITHUB_WORKSPACE
           elif [ "${{ matrix.image }}" == 'macos-latest' ]; then
@@ -58,10 +60,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           files: |
-            if [ "${{ matrix.image }}" == 'windows-latest' ]; then
               ${{ github.workspace }}/watch-movies-windows.zip
-            elif [ "${{ matrix.image }}" == 'macos-latest' ]; then
               ${{ github.workspace }}/watch-movies-macos.tar.gz
-            elif [ "${{ matrix.image }}" == 'ubuntu-latest' ]; then
               ${{ github.workspace }}/watch-movies-linux.tar.gz
-            fi
