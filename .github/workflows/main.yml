@@ -23,10 +23,10 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        run: pip install -r .app/requirements.txt
+        run: pip install -r app/requirements.txt
 
       - name: Build application
-        run: flet pack .app/main.py --name watch-movies --icon .app/assets/icon.png --product-name watch-movies --product-version "1.0.1" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+        run: flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies --product-version "1.0.1" --copyright "Copyright (c) 2024 Edoardo Gruppi"
 
       - name: Archive artifacts
         run: |
