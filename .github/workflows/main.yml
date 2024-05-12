@@ -1,0 +1,47 @@
+name: Build and Deploy
+
+on:
+  push:
+    - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ${{ matrix.image }}
+
+    strategy:
+      matrix:
+        image: ["windows-latest", "macos-latest", "ubuntu-latest"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install -r .app/requirements.txt
+
+      - name: Build application
+        run: flet pack .app/main.py --name watch-movies --icon .app/assets/icon.png --product-name watch-movies --product-version "1.0.1" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+
+      - name: Archive artifacts
+        run: |
+          if [ ${{ matrix.image }} == 'windows-latest' ]; then
+            7z a watch-movies-windows.zip dist/*.exe
+            mv watch-movies-windows.zip $GITHUB_WORKSPACE
+          elif [ ${{ matrix.image }} == 'macos-latest' ]; then
+            tar -czvf watch-movies-macos.tar.gz -C dist watch-movies.app
+            mv watch-movies-macos.tar.gz $GITHUB_WORKSPACE
+          elif [ ${{ matrix.image }} == 'ubuntu-latest' ]; then
+            tar -czvf watch-movies-linux.tar.gz -C dist watch-movies
+            mv watch-movies-linux.tar.gz $GITHUB_WORKSPACE
+          fi
+
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.image }}-package
+          path: ${{ github.workspace }}/*.zip
