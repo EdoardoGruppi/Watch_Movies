@@ -32,12 +32,12 @@ jobs:
         run: |
           if [ "${{ matrix.image }}" == 'debian' ]; then
               echo "Debian"
-            elif [ "${{ matrix.image }}" == 'windows-latest' ]; then
-              flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets;assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
-            elif [ "${{ matrix.image }}" == 'macos-latest' ]; then
-              flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets:assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
-            elif [ "${{ matrix.image }}" == 'ubuntu-latest' ]; then
-              flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets:assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+          elif [ "${{ matrix.image }}" == 'windows-latest' ]; then
+            flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets;assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+          elif [ "${{ matrix.image }}" == 'macos-latest' ]; then
+            flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets:assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+          elif [ "${{ matrix.image }}" == 'ubuntu-latest' ]; then
+            flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets:assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
           fi
         shell: bash
 
