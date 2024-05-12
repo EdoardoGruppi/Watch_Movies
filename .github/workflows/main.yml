@@ -29,7 +29,17 @@ jobs:
         run: pip install -r app/requirements.txt
 
       - name: Build application
-        run: flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies --product-version "1.0.1" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+        run: |
+          if [ "${{ matrix.image }}" == 'debian' ]; then
+              echo "Debian"
+            elif [ "${{ matrix.image }}" == 'windows-latest' ]; then
+              flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets;assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+            elif [ "${{ matrix.image }}" == 'macos-latest' ]; then
+              flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets:assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+            elif [ "${{ matrix.image }}" == 'ubuntu-latest' ]; then
+              flet pack app/main.py --name watch-movies --icon app/assets/icon.png --product-name watch-movies  --add-data "assets:assets" --copyright "Copyright (c) 2024 Edoardo Gruppi"
+          fi
+        shell: bash
 
       - name: Archive artifacts
         run: |
@@ -54,7 +64,7 @@ jobs:
           path: |
             ${{ github.workspace }}/*.zip
             ${{ github.workspace }}/*.tar.gz
-            
+
       - name: Create and publish release
         id: create_release
         uses: ncipollo/release-action@v1.14.0
@@ -66,7 +76,6 @@ jobs:
           body: "New release"
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
-             ${{ github.workspace }}/watch-movies-macos.tar.gz
-             ${{ github.workspace }}/watch-movies-windows.zip
-             ${{ github.workspace }}/watch-movies-linux.tar.gz
-
+            ${{ github.workspace }}/watch-movies-macos.tar.gz
+            ${{ github.workspace }}/watch-movies-windows.zip
+            ${{ github.workspace }}/watch-movies-linux.tar.gz
