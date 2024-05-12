@@ -57,9 +57,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
           files: |
-            ${{ github.workspace }}/watch-movies-windows.zip
-            ${{ github.workspace }}/watch-movies-macos.tar.gz
-            ${{ github.workspace }}/watch-movies-linux.tar.gz
-        
+            if [ "${{ matrix.image }}" == 'windows-latest' ]; then
+              ${{ github.workspace }}/watch-movies-windows.zip
+            elif [ "${{ matrix.image }}" == 'macos-latest' ]; then
+              ${{ github.workspace }}/watch-movies-macos.tar.gz
+            elif [ "${{ matrix.image }}" == 'ubuntu-latest' ]; then
+              ${{ github.workspace }}/watch-movies-linux.tar.gz
+            fi
