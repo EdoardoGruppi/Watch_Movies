@@ -40,6 +40,7 @@ jobs:
             tar -czvf watch-movies-linux.tar.gz -C dist watch-movies
             ls $GITHUB_WORKSPACE
           fi
+        shell: bash
 
       - name: Publish artifacts
         uses: actions/upload-artifact@v2
@@ -52,12 +53,13 @@ jobs:
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
-        if: github.ref_type == 'tag'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           files: |
             ${{ github.workspace }}/watch-movies-windows.zip
             ${{ github.workspace }}/watch-movies-macos.tar.gz
             ${{ github.workspace }}/watch-movies-linux.tar.gz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
