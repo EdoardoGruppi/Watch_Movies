@@ -1,0 +1,30 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by GitHub Actions
+        with:
+          tag_name: v1.0.0 # Specify the tag name for the release
+          release_name: Release v1.0.0 # Specify the release name
+          body: | # Specify the release notes or description
+            This is the first release of the application.
+          draft: false # Set to true to create a draft release
+          prerelease: false # Set to true for prerelease versions
+          files: |
+            ${{ github.workspace }}/watch-movies-windows.zip
+            ${{ github.workspace }}/watch-movies-macos.tar.gz
+            ${{ github.workspace }}/watch-movies-linux.tar.gz
