@@ -33,7 +33,7 @@ jobs:
 
       - name: Archive artifacts
         run: |
-          if [ "${{ matrix.image }}" == 'aaaa' ]; then
+          if [ "${{ matrix.image }}" == 'debian' ]; then
             ls $GITHUB_WORKSPACE
           elif [ "${{ matrix.image }}" == 'windows-latest' ]; then
             7z a watch-movies-windows.zip dist/*.exe
@@ -62,11 +62,11 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           tag: v${{ matrix.new_version }}
-          name: Notepads v${{ matrix.new_version }}
+          name: Watch_Movies v${{ matrix.new_version }}
           body: "New release"
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
              ${{ github.workspace }}/watch-movies-macos.tar.gz
              ${{ github.workspace }}/watch-movies-windows.zip
-             ${{ github.workspace }}/Watch_Movies/watch-movies-linux.tar.gz
+             ${{ github.workspace }}/watch-movies-linux.tar.gz
 
