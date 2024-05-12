@@ -445,4 +445,4 @@ class App:
 
 
 app = App()
-ft.app(app.main)
+ft.app(app.main, assets_dir="assets")
