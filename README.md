@@ -1,61 +1,27 @@
 # Watch Movies
 
-This project implements a movie realted application built using the Flet framework.
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/edoardogruppi/watch_movies/total?style=flat-square)
 
-## Features
+Watch Movies is your ultimate tool for discovering films. Available on Windows, Mac, and Linux, it helps you easily search and locate movies across various streaming services globally. Whether it's Netflix, Amazon Prime Video, or others, find out where your favorite films are available, no matter where you are in the world. Download Watch Movies now and explore a world of cinema at your fingertips!
 
-- Search for movies based on title, country, and language criteria.
-- View movie details including poster, title, description, release date, runtime, and genres.
-- Explore streaming offers for each movie across various services and countries (configurable).
-- Click on an offer to open the streaming service's website in the user's browser (if price is available).
+## How to support?
 
-## Getting Started
+<a href="https://www.buymeacoffee.com/edoardogruppi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
-### Prerequisites:
+Help power Watch Movies—a tool for worldwide movie discovery. Your support fuels ongoing enhancements, making it easier for users to find films across global streaming services. By buying me a coffee, you're contributing to a more accessible and enjoyable cinematic experience for all. Join me on this journey!
 
-- Python 3.6 or later
-- Flet library (pip install flet)
+## Installation
 
-- Installation using micromamba in a debian based docker container:
-micromamba create -f environment.yml
-sudo apt-get update
-sudo apt install libgtk-3-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-sudo apt install libmpv-dev mpv
+To install Watch Movies on your device, start by downloading the appropriate zip file for your operating system from the Releases section of our GitHub repository.
 
+For **Windows** users, extract the contents of the `watch-movies-windows.zip` folder to a location of your choice, and simply double-click on the `watch-movies.exe` file to launch the application.
 
-### Running the Application:
+**Mac** users should extract the contents of the `watch-movies-macos.zip` folder and double-click on the `watch-movies` application file to run it.
 
-- Ensure you have the required libraries installed.
-- Open the main script (e.g., main.py) containing the ft.app(target=App()) line.
-- Run the script using python main.py. This will launch the Flet app in your web browser.
+**Linux** users can extract the contents of the `watch-movies-linux.zip` folder to a directory of their choice, set the permissions of the `watch-movies` file using the `chmod +x watch-movies` command in the terminal, and then execute the application by typing `./watch-movies`.
 
-### Code Structure
-
-The code is organized into modules:
-
-- app.py: Contains the core application logic defined in the App class.
-- constants.py: Stores constants like service names (ORDERED_SERVICES) and genre mappings (GENRE_MAPPING).
-- helpers.py: Provides helper functions for movie search (find_titles) and retrieving streaming offers (find_offers).
-
-## Dependencies
-
-Flet (https://github.com/flet-dev/flet): A Python framework for building user interfaces for web, desktop, and mobile.
-
-## Next Steps
-
-- Add app buttons
-- Improve UI
-- Allow pressing the Enter button to start searching movies
-- Add countries flags
+Once installed, you can start exploring and discovering movies across various streaming platforms right from your desktop.
 
 ## Contributing
 
 Feel free to fork the repository and submit pull requests with improvements or new features!
-
-<!-- TODO
-README.md
-Github Actions
-Sponsor Button
-Download Count
-Reddit comments
- -->
