@@ -30,13 +30,13 @@ jobs:
 
       - name: Archive artifacts
         run: |
-          if [ ${{ matrix.image }} == 'windows-latest' ]; then
+          if [ "${{ matrix.image }}" == 'windows-latest' ]; then
             7z a watch-movies-windows.zip dist/*.exe
             ls $GITHUB_WORKSPACE
-          elif [ ${{ matrix.image }} == 'macos-latest' ]; then
+          elif [ "${{ matrix.image }}" == 'macos-latest' ]; then
             tar -czvf watch-movies-macos.tar.gz -C dist watch-movies.app
             ls $GITHUB_WORKSPACE
-          elif [ ${{ matrix.image }} == 'ubuntu-latest' ]; then
+          elif [ "${{ matrix.image }}" == 'ubuntu-latest' ]; then
             tar -czvf watch-movies-linux.tar.gz -C dist watch-movies
             ls $GITHUB_WORKSPACE
           fi
@@ -48,3 +48,14 @@ jobs:
           path: |
             ${{ github.workspace }}/*.zip
             ${{ github.workspace }}/*.tar.gz
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ github.workspace }}/watch-movies-windows.zip
+            ${{ github.workspace }}/watch-movies-macos.tar.gz
+            ${{ github.workspace }}/watch-movies-linux.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
