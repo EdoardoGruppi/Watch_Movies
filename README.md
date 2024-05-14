@@ -4,6 +4,8 @@
 
 Watch Movies is your ultimate tool for discovering films. Available on Windows, Mac, and Linux, it helps you easily search and locate movies across various streaming services globally. Whether it's Netflix, Amazon Prime Video, or others, find out where your favorite films are available, no matter where you are in the world. Download Watch Movies now and explore a world of cinema at your fingertips!
 
+https://github.com/EdoardoGruppi/Watch_Movies/assets/48513387/fa525e38-47c3-4d24-8bbf-fd1d035f543f
+
 ## How to support?
 
 <a href="https://www.buymeacoffee.com/edoardogruppi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
