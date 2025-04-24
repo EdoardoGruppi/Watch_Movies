@@ -1,6 +1,0 @@
-flet==0.22.*
-simple-justwatch-python-api==0.14
-pycountry==23.12.11
-python-dotenv==1.0.1
-pyinstaller==6.6.0
-pillow==10.3.0
