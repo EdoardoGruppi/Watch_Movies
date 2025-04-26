@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { BaseContext } from "@context/shared";
 import { useNavigate } from "react-router-dom";
 import { useHotkeys } from "@mantine/hooks";
+import { ThemeToggle } from "./themeToggle";
 
 export function Home() {
   const {
@@ -26,6 +27,7 @@ export function Home() {
 
   return (
     <>
+      <ThemeToggle></ThemeToggle>
       <Group
         justify="center"
         grow

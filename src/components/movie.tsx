@@ -10,9 +10,10 @@ import {
   Table,
   Text,
   Title,
+  useMantineColorScheme,
 } from "@mantine/core";
 import { format } from "date-fns";
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import imdbLogo from "@assets/imdb.svg";
 import tmdbLogo from "@assets/tmdb.svg";
 import rottenLogo from "@assets/rottentomato.svg";
@@ -21,6 +22,7 @@ import {
   ModuleRegistry,
   ColDef,
   ICellRendererParams,
+  themeQuartz,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { Cell, Row } from "@interfaces/table";
@@ -32,6 +34,7 @@ import { CURRENCY_SYMBOLS } from "@constants/currencies";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 export function Movie() {
+  const { colorScheme } = useMantineColorScheme();
   const { movies, selected: id, offers } = useContext(BaseContext);
   const movie = useMemo(() => movies!.find((i) => i.id === id), [id, movies]);
   const rowData = useMemo(
@@ -101,6 +104,10 @@ export function Movie() {
       },
     })),
   ];
+
+  useEffect(() => {
+    document.body.dataset.agThemeMode = colorScheme;
+  }, [colorScheme]);
 
   return (
     <>
@@ -335,7 +342,6 @@ export function Movie() {
             </Card>
           </Group>
           <div
-            className="ag-theme-quartz"
             style={{
               height: 500,
               width: "100%",
@@ -345,6 +351,7 @@ export function Movie() {
             }}
           >
             <AgGridReact
+              theme={themeQuartz}
               autoSizeStrategy={{ type: "fitGridWidth" }}
               colResizeDefault="shift"
               defaultColDef={{ flex: 1 }}
