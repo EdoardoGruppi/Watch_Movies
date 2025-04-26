@@ -1,6 +1,7 @@
 import { GENRES } from "@constants/genres";
 import { BaseContext } from "@context/shared";
 import {
+  ActionIcon,
   Badge,
   Card,
   Group,
@@ -29,11 +30,14 @@ import { Cell, Row } from "@interfaces/table";
 import { SERVICES } from "@constants/services";
 import { COUNTRIES } from "@constants/countries";
 import { CURRENCY_SYMBOLS } from "@constants/currencies";
+import { IconArrowLeft } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 export function Movie() {
+  const navigate = useNavigate();
   const { colorScheme } = useMantineColorScheme();
   const { movies, selected: id, offers } = useContext(BaseContext);
   const movie = useMemo(() => movies!.find((i) => i.id === id), [id, movies]);
@@ -117,6 +121,16 @@ export function Movie() {
     <>
       {movie && (
         <>
+          <ActionIcon
+            color="orange"
+            variant="light"
+            size="lg"
+            radius="sm"
+            style={{ position: "absolute", top: 6, left: 6 }}
+            onClick={() => navigate("/")}
+          >
+            <IconArrowLeft size={22} stroke={1.5} />
+          </ActionIcon>
           <Group p={50} justify="space-between">
             <div>
               <Image
@@ -293,14 +307,18 @@ export function Movie() {
                     <Text fz={15}>
                       <strong>Rank:</strong> {movie.streamingCharts?.rank}°
                     </Text>
-                    <Text
-                      fz={15}
-                      c={
-                        movie.streamingCharts?.trend === "UP" ? "green" : "red"
-                      }
-                    >
-                      <strong style={{ color: "black" }}>Trend:</strong>{" "}
-                      <strong>{movie.streamingCharts?.trendDifference}</strong>
+                    <Text fz={15}>
+                      <strong>Trend:</strong>{" "}
+                      <strong
+                        style={{
+                          color:
+                            movie.streamingCharts?.trend === "UP"
+                              ? "green"
+                              : "red",
+                        }}
+                      >
+                        {movie.streamingCharts?.trendDifference}
+                      </strong>
                     </Text>
                     <Text fz={15}>
                       <strong>Best:</strong> {movie.streamingCharts?.topRank}°
