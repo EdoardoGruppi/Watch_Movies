@@ -1,5 +1,5 @@
-import { GRAPHQL_API_URL } from "@/constants/justwatch";
-import { MediaEntry, Offer } from "@/interfaces/justwatch";
+import { GRAPHQL_API_URL } from "@constants/justwatch";
+import { MediaEntry, Offer } from "@interfaces/justwatch";
 import {
   parseDetailsResponse,
   parseOffersForCountriesResponse,

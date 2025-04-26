@@ -7,7 +7,7 @@ import {
   _GRAPHQL_OFFERS_BY_COUNTRY_QUERY,
   _GRAPHQL_SEARCH_QUERY,
   _IMAGES_URL,
-} from "@/constants/justwatch";
+} from "@constants/justwatch";
 import {
   Interactions,
   MediaEntry,
@@ -15,7 +15,7 @@ import {
   OfferPackage,
   Scoring,
   StreamingCharts,
-} from "@/interfaces/justwatch";
+} from "@interfaces/justwatch";
 
 function assertCountryCodeIsValid(code: string): void {
   if (code.length !== 2) throw new Error(`Invalid country code: ${code}`);
