@@ -7,6 +7,7 @@ import cardClasses from "@styles/card.module.css";
 import { useContext } from "react";
 import { BaseContext } from "@context/shared";
 import { useNavigate } from "react-router-dom";
+import { useHotkeys } from "@mantine/hooks";
 
 export function Home() {
   const {
@@ -21,6 +22,7 @@ export function Home() {
     setSelected,
   } = useContext(BaseContext);
   const navigate = useNavigate();
+  useHotkeys([["enter", () => fetchMovies()]]);
 
   return (
     <>
@@ -67,6 +69,7 @@ export function Home() {
         variant="filled"
         size="md"
         radius="xl"
+        style={{ width: 200 }}
         onClick={fetchMovies}
         className={classes.searchButton}
       >
