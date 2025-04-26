@@ -26,6 +26,7 @@ import { AgGridReact } from "ag-grid-react";
 import { Cell, Row } from "@interfaces/table";
 import { SERVICES } from "@constants/services";
 import { COUNTRIES } from "@constants/countries";
+import { CURRENCY_SYMBOLS } from "@constants/currencies";
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -85,7 +86,7 @@ export function Movie() {
         const priceDisplay =
           data.price == null || data.currency == null
             ? "Free"
-            : `${data.price} ${data.currency}`;
+            : `${data.price} ${CURRENCY_SYMBOLS[data.currency]}`;
         if (data.url)
           return (
             <a
