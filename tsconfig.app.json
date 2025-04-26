@@ -26,7 +26,10 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@helpers/*": ["helpers/*"],
+      "@components/*": ["components/*"],
       "@constants/*": ["constants/*"],
+      "@context/*": ["context/*"],
+      "@hooks/*": ["hooks/*"],
       "@interfaces/*": ["interfaces/*"],
       "@styles/*": ["styles/*"]
     }
