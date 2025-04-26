@@ -2,7 +2,7 @@
 
 https://github.com/Electronic-Mango/simple-justwatch-python-api/tree/main?tab=readme-ov-file
 
-# improve styles
+# improve styles and bring all css into css files
 
 # title of web tab
 
