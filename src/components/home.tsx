@@ -22,7 +22,7 @@ export function Home() {
     setSelected,
   } = useContext(BaseContext);
   const navigate = useNavigate();
-  useHotkeys([["enter", () => fetchMovies()]]);
+  useHotkeys([["enter", () => fetchMovies()]], [], true);
 
   return (
     <>
