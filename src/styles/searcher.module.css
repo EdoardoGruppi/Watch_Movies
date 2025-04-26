@@ -1,0 +1,10 @@
+.banner {
+  background-color: red;
+}
+
+.searchButton {
+  position: absolute;
+  left: calc(50% - 50px);
+  margin-top: -20px;
+  width: 100px;
+}
