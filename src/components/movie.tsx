@@ -89,7 +89,11 @@ export function Movie() {
         const priceDisplay =
           data.price == null || data.currency == null
             ? "Free"
-            : `${data.price} ${CURRENCY_SYMBOLS[data.currency]}`;
+            : `${data.price} ${
+                CURRENCY_SYMBOLS[data.currency]
+                  ? CURRENCY_SYMBOLS[data.currency]
+                  : data.currency
+              }`;
         if (data.url)
           return (
             <a
