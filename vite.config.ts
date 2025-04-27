@@ -6,6 +6,7 @@ import dynamicImport from "vite-plugin-dynamic-import";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), dynamicImport()],
+  base: "/Watch_Movies",
   resolve: {
     alias: {
       "@assets": path.resolve(__dirname, "src/assets"),
