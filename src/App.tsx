@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <MantineProvider>
+        <MantineProvider defaultColorScheme="dark">
           <BaseProvider>
             <Routes>
               <Route path="/*" element={<Home></Home>}></Route>
