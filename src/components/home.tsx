@@ -1,7 +1,15 @@
 import "@mantine/core/styles.css";
-import { Button, Card, Group, Input, Select, Image } from "@mantine/core";
+import {
+  Card,
+  Group,
+  Input,
+  Select,
+  Image,
+  Grid,
+  ActionIcon,
+} from "@mantine/core";
 import { COUNTRIES, LANGUAGES } from "@constants/countries";
-import { IconMovie } from "@tabler/icons-react";
+import { IconMovie, IconSearch } from "@tabler/icons-react";
 import classes from "@styles/searcher.module.css";
 import cardClasses from "@styles/card.module.css";
 import { useContext } from "react";
@@ -28,55 +36,66 @@ export function Home() {
   return (
     <>
       <ThemeToggle></ThemeToggle>
-      <Group
+      <Grid
         justify="center"
         grow
-        preventGrowOverflow={false}
-        py={80}
+        py={100}
         px={"15%"}
-        gap={"sm"}
+        gutter="xs"
+        breakpoints={{
+          xs: "200px",
+          sm: "500px",
+          md: "700px",
+          lg: "900px",
+          xl: "1200px",
+        }}
         className={classes.banner}
       >
-        <Input
-          placeholder="Search"
-          leftSection={<IconMovie size={16} />}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          style={{ width: "50%", maxWidth: 500, minWidth: 200 }}
-        />
-        <Select
-          placeholder="Country to search for offers"
-          data={Object.entries(COUNTRIES).map(([key, value]) => ({
-            value: key,
-            label: value,
-          }))}
-          value={country}
-          onChange={(e) => setCountry(e!)}
-          searchable
-          style={{ width: "30%", maxWidth: 300, minWidth: 200 }}
-        />
-        <Select
-          placeholder="Language"
-          data={Object.entries(LANGUAGES).map(([key, value]) => ({
-            value: key,
-            label: value,
-          }))}
-          value={language}
-          onChange={(e) => setLanguage(e!)}
-          searchable
-          style={{ width: "15%", maxWidth: 150, minWidth: 150 }}
-        />
-      </Group>
-      <Button
-        variant="filled"
-        size="md"
-        radius="xl"
-        style={{ width: 200 }}
-        onClick={fetchMovies}
-        className={classes.searchButton}
-      >
-        Search
-      </Button>
+        <Grid.Col span={{ xs: 12, sm: 12, md: 12, lg: 5.5, xl: 6.5 }}>
+          <Input
+            placeholder="Search"
+            leftSection={<IconMovie size={16} />}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </Grid.Col>
+        <Grid.Col span={{ xs: 12, sm: 8, md: 8, lg: 4, xl: 3.5 }}>
+          <Select
+            placeholder="Country to search for offers"
+            data={Object.entries(COUNTRIES).map(([key, value]) => ({
+              value: key,
+              label: value,
+            }))}
+            value={country}
+            onChange={(e) => setCountry(e!)}
+            searchable
+          />
+        </Grid.Col>
+        <Grid.Col span={{ xs: 12, sm: 4, md: 4, lg: 2.5, xl: 2 }}>
+          <div className={classes.languageContainer}>
+            <Select
+              placeholder="Language"
+              data={Object.entries(LANGUAGES).map(([key, value]) => ({
+                value: key,
+                label: value,
+              }))}
+              value={language}
+              onChange={(e) => setLanguage(e!)}
+              searchable
+              className={classes.language}
+            />
+            <ActionIcon
+              variant="default"
+              size="lg"
+              className={classes.actionIcon}
+              onClick={() => fetchMovies()}
+            >
+              <IconSearch className={classes.icon} stroke={1.5} />
+            </ActionIcon>
+          </div>
+        </Grid.Col>
+      </Grid>
+
       <Group justify="center" py="60">
         {movies?.map((movie) => (
           <Card
@@ -85,7 +104,7 @@ export function Home() {
             radius="md"
             withBorder
             key={movie.id}
-            style={{ width: 200 }}
+            w={200}
             className={cardClasses.card}
             onClick={() => {
               setSelected(movie.id);

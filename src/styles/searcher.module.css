@@ -1,10 +1,33 @@
 .banner {
-  background-color: red;
+  background-image: light-dark(
+    url("https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+  );
+  background-position: 50% 55%;
+  background-repeat: no-repeat;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 40%,
+    rgba(0, 0, 0, 0) 90%
+  );
+  height: 300px;
 }
 
-.searchButton {
-  position: absolute;
-  left: calc(50% - 50px);
-  margin-top: -20px;
-  width: 100px;
+.languageContainer {
+  display: flex;
+  min-width: 100%;
+}
+
+.language {
+  flex-grow: 1;
+}
+
+.actionIcon {
+  height: 36px;
+  margin-left: 10px;
+}
+
+.icon {
+  width: 55%;
+  height: 55%;
 }

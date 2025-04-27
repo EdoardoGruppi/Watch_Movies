@@ -1,0 +1,115 @@
+.backButton {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+
+.poster {
+  border-radius: 8px;
+}
+
+.descriptionWrapper {
+  width: 60%;
+  height: 400px;
+  position: relative;
+}
+
+.genres {
+  bottom: 0px;
+  position: absolute;
+}
+
+.statsCard {
+  width: 280px;
+  height: 400px;
+  position: relative;
+  padding: 0px;
+}
+
+.imdbContainer {
+  display: flex;
+  border-radius: 8px;
+  background-color: rgba(246, 199, 0, 0.4);
+}
+
+.imdbImage {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(246, 199, 0, 1);
+  border-radius: 8px;
+}
+
+.imdbStats {
+  width: 120px;
+  height: 80px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tmdbContainer {
+  display: flex;
+  border-radius: 8px;
+  background-color: rgba(44, 58, 60, 0.4);
+  margin-top: 10px;
+}
+
+.tmdbImage {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(44, 58, 60, 1);
+  border-radius: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.tmdbStats {
+  width: 120px;
+  height: 80px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rottenContainer {
+  display: flex;
+  border-radius: 8px;
+  background-color: rgba(178, 10, 4, 0.4);
+  margin-top: 10px;
+}
+
+.rottenImage {
+  width: 80px;
+  height: 50px;
+  background-color: rgba(178, 10, 4, 1);
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.rottenStats {
+  width: 120px;
+  height: 50px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gridContainer {
+  height: 500px !important;
+  width: 100%;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px;
+}
+
+.scoreContainer {
+  margin-top: 10px;
+  border-radius: 8px;
+  background-color: rgba(67, 156, 234, 0.6);
+  min-height: 160px;
+  display: flex;
+  padding: 17px;
+}

@@ -3,12 +3,13 @@ import { BaseContext } from "@context/shared";
 import {
   ActionIcon,
   Badge,
-  Card,
+  Grid,
   Group,
   Image,
+  Paper,
   Progress,
   Rating,
-  Table,
+  SimpleGrid,
   Text,
   Title,
   useMantineColorScheme,
@@ -32,6 +33,7 @@ import { COUNTRIES } from "@constants/countries";
 import { CURRENCY_SYMBOLS } from "@constants/currencies";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import classes from "@styles/movie.module.css";
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -126,30 +128,41 @@ export function Movie() {
             variant="light"
             size="lg"
             radius="sm"
-            style={{ position: "absolute", top: 6, left: 6 }}
+            className={classes.backButton}
             onClick={() => navigate("/")}
           >
             <IconArrowLeft size={22} stroke={1.5} />
           </ActionIcon>
-          <Group p={50} justify="space-between">
-            <div>
+          <Grid
+            p={50}
+            gutter={30}
+            breakpoints={{
+              xs: "600px",
+              sm: "1000px",
+              md: "1200px",
+              lg: "1500px",
+              xl: "1800px",
+            }}
+          >
+            <Grid.Col
+              span={{ xs: 6, sm: 3.5, md: 3, lg: 2.5, xl: 2 }}
+              order={{ base: 1, sm: 1 }}
+            >
               <Image
                 src={movie.poster}
                 height={400}
                 alt="Poster"
-                style={{ borderRadius: 8 }}
+                className={classes.poster}
               />
-            </div>
-            <div
-              style={{
-                width: "60%",
-                height: 400,
-                position: "relative",
-              }}
+            </Grid.Col>
+            <Grid.Col
+              span={{ xs: 12, sm: 5, md: 6, lg: 7, xl: 7.8 }}
+              order={{ base: 3, sm: 2 }}
+              className={classes.descriptionWrapper}
             >
               <Title mb="md">{movie.title}</Title>
               <Text fs="italic">{movie.shortDescription}</Text>
-              <div style={{ bottom: 0, position: "absolute" }}>
+              <div className={classes.genres}>
                 <Group mb="md" gap={5}>
                   {movie.genres.map((genre) => (
                     <Badge color={GENRES[genre].color} radius="xs" key={genre}>
@@ -167,42 +180,14 @@ export function Movie() {
                   {format(movie.releaseDate, "PPP")}
                 </Text>
               </div>
-            </div>{" "}
-            <Card
-              style={{
-                width: 280,
-                height: 400,
-                position: "relative",
-                padding: 0,
-              }}
+            </Grid.Col>
+            <Grid.Col
+              span={{ xs: 6, sm: 3.5, md: 3, lg: 2.5, xl: 2.2 }}
+              order={{ base: 2, sm: 3 }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  borderRadius: 8,
-                  backgroundColor: "rgba(246, 199, 0, 0.4)",
-                }}
-              >
-                <div
-                  style={{
-                    width: 80,
-                    height: 80,
-                    backgroundColor: "rgba(246, 199, 0, 1)",
-                    borderRadius: 8,
-                  }}
-                >
-                  <img src={imdbLogo} width={80} />
-                </div>
-                <div
-                  style={{
-                    width: 120,
-                    height: 80,
-                    paddingLeft: 20,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
+              <div className={classes.imdbContainer}>
+                <img src={imdbLogo} width={80} className={classes.imdbImage} />
+                <div className={classes.imdbStats}>
                   <Rating
                     value={(movie.scoring?.imdbScore ?? 0) / 2}
                     fractions={5}
@@ -213,34 +198,9 @@ export function Movie() {
                   </Text>
                 </div>
               </div>
-              <div
-                style={{
-                  marginTop: 10,
-                  display: "flex",
-                  borderRadius: 8,
-                  backgroundColor: "rgba(44, 58, 60, 0.4)",
-                }}
-              >
-                <div
-                  style={{
-                    width: 80,
-                    height: 80,
-                    backgroundColor: "rgba(44, 58, 60, 1)",
-                    borderRadius: 8,
-                  }}
-                >
-                  <img src={tmdbLogo} width={80} style={{ padding: 8 }} />
-                </div>
-                <div
-                  style={{
-                    width: 120,
-                    height: 80,
-                    paddingLeft: 20,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
+              <div className={classes.tmdbContainer}>
+                <img src={tmdbLogo} width={80} className={classes.tmdbImage} />
+                <div className={classes.tmdbStats}>
                   <Rating
                     value={(movie.scoring?.tmdbScore ?? 0) / 2}
                     fractions={5}
@@ -255,38 +215,13 @@ export function Movie() {
                   />
                 </div>
               </div>
-              <div
-                style={{
-                  marginTop: 10,
-                  display: "flex",
-                  borderRadius: 8,
-                  backgroundColor: "rgba(178, 10, 4, 0.4)",
-                }}
-              >
-                <div
-                  style={{
-                    width: 80,
-                    height: 50,
-                    backgroundColor: "rgba(178, 10, 4, 1)",
-                    borderRadius: 8,
-                  }}
-                >
-                  <img
-                    src={rottenLogo}
-                    width={50}
-                    style={{ paddingLeft: 11, paddingTop: 4 }}
-                  />
-                </div>
-                <div
-                  style={{
-                    width: 120,
-                    height: 50,
-                    paddingLeft: 20,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
+              <div className={classes.rottenContainer}>
+                <img
+                  src={rottenLogo}
+                  width={50}
+                  className={classes.rottenImage}
+                />
+                <div className={classes.rottenStats}>
                   <Rating
                     value={(movie.scoring?.tomatoMeter ?? 0) / 20}
                     fractions={5}
@@ -294,22 +229,26 @@ export function Movie() {
                   />
                 </div>
               </div>
-              <div
-                style={{
-                  marginTop: 10,
-                  borderRadius: 8,
-                  backgroundColor: "rgba(67, 156, 234, 0.6)",
-                  minHeight: 160,
-                }}
-              >
-                <div style={{ display: "flex", padding: 17 }}>
-                  <div>
-                    <Text fz={15}>
-                      <strong>Rank:</strong> {movie.streamingCharts?.rank}°
-                    </Text>
-                    <Text fz={15}>
-                      <strong>Trend:</strong>{" "}
-                      <strong
+              <div className={classes.scoreContainer}>
+                <div>
+                  <SimpleGrid cols={3} spacing={"xs"}>
+                    <Paper
+                      radius="md"
+                      shadow="md"
+                      p="xs"
+                      style={{ minWidth: 80 }}
+                    >
+                      <Title fz={28}>{movie.streamingCharts?.rank ?? 0}</Title>
+                      <Text className={classes.label}>Rank</Text>
+                    </Paper>
+                    <Paper
+                      radius="md"
+                      shadow="md"
+                      p="xs"
+                      style={{ minWidth: 80 }}
+                    >
+                      <Title
+                        fz={28}
                         style={{
                           color:
                             movie.streamingCharts?.trend === "UP"
@@ -317,61 +256,28 @@ export function Movie() {
                               : "red",
                         }}
                       >
-                        {movie.streamingCharts?.trendDifference}
-                      </strong>
-                    </Text>
-                    <Text fz={15}>
-                      <strong>Best:</strong> {movie.streamingCharts?.topRank}°
-                    </Text>
-                  </div>
-                  <div style={{ paddingLeft: 60 }}>
-                    <Table
-                      striped
-                      withTableBorder
-                      verticalSpacing={1}
-                      withColumnBorders
+                        {movie.streamingCharts?.trendDifference ?? 0}
+                      </Title>
+                      <Text className={classes.label}>Trend</Text>
+                    </Paper>
+                    <Paper
+                      radius="md"
+                      shadow="md"
+                      p="xs"
+                      style={{ minWidth: 80 }}
                     >
-                      <Table.Thead>
-                        <Table.Tr>
-                          <Table.Th>Top</Table.Th>
-                          <Table.Th>Days</Table.Th>
-                        </Table.Tr>
-                      </Table.Thead>
-                      <Table.Tbody>
-                        <Table.Tr>
-                          <Table.Td>{3}</Table.Td>
-                          <Table.Td>
-                            {movie.streamingCharts?.daysInTop3}
-                          </Table.Td>
-                        </Table.Tr>
-                        <Table.Tr>
-                          <Table.Td>{10}</Table.Td>
-                          <Table.Td>
-                            {movie.streamingCharts?.daysInTop10}
-                          </Table.Td>
-                        </Table.Tr>
-                        <Table.Tr>
-                          <Table.Td>{100}</Table.Td>
-                          <Table.Td>
-                            {movie.streamingCharts?.daysInTop100}
-                          </Table.Td>
-                        </Table.Tr>
-                      </Table.Tbody>
-                    </Table>
-                  </div>
+                      <Title fz={28}>
+                        {movie.streamingCharts?.topRank ?? 0}
+                      </Title>
+                      <Text className={classes.label}>Best</Text>
+                    </Paper>
+                  </SimpleGrid>
                 </div>
               </div>
-            </Card>
-          </Group>
-          <div
-            style={{
-              height: 500,
-              width: "100%",
-              paddingLeft: 50,
-              paddingRight: 50,
-              paddingBottom: 20,
-            }}
-          >
+            </Grid.Col>
+          </Grid>
+
+          <div className={classes.gridContainer}>
             <AgGridReact
               theme={themeQuartz}
               autoSizeStrategy={{ type: "fitGridWidth" }}
