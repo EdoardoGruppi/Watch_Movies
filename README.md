@@ -26,14 +26,7 @@ Feel free to fork the repository and submit pull requests with improvements, bug
 
 The interaction with the backend service that provides movie data is inspired by the python package [simple-justwatch-python-api](https://github.com/Electronic-Mango/simple-justwatch-python-api/tree/main?tab=readme-ov-file).
 
-<!-- # improve styles and bring all css into css files. Improve ranks
+Banner images are from unsplash:
 
-# crea github page
-
-# migliora readme
-
-# Adapt to responsive
-
----
-
-# publicizza -->
+- [Dark mode](https://unsplash.com/photos/red-cinema-chair-evlkOfkQ5rE)
+- [Light mode](https://unsplash.com/photos/two-reels-2uwFEAGUm6E)
