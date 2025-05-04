@@ -2,6 +2,9 @@
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/edoardogruppi/watch_movies/total?style=flat-square)
 
+> [!NOTE]  
+> The [website](https://edoardogruppi.github.io/Watch_Movies/) version is available in the website branch. Please follow the instructions in its [README](https://github.com/EdoardoGruppi/Watch_Movies/tree/website) carefully, as it includes steps for installing and configuring a required browser extension.
+
 Watch Movies is your ultimate tool for discovering films. Available on Windows, Mac, and Linux, it helps you easily search and locate movies across various streaming services globally. Whether it's Netflix, Amazon Prime Video, or others, find out where your favorite films are available, no matter where you are in the world. Download Watch Movies now and explore a world of cinema at your fingertips!
 
 https://github.com/EdoardoGruppi/Watch_Movies/assets/48513387/fa525e38-47c3-4d24-8bbf-fd1d035f543f
