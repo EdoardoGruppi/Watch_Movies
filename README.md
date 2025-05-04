@@ -6,6 +6,27 @@ Search and locate movies across various streaming services worldwide, including 
 
 Explore a world of cinema at your fingertips, all from your browser.
 
+## CORS and Web Extension Configuration
+
+CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to control how resources on a web page can be requested from another domain. 
+
+To bypass CORS restrictions for only this website, you can install the CORS Everywhere browser extension. It is open-source and its code is available on [GitHub](https://github.com/spenibus/cors-everywhere-firefox-addon).
+
+1. Install the CORS Everywhere extension in your browser.
+
+2. Go to the extension’s settings.
+
+3. In the Activation whitelist field, enter the following pattern: `/^https:\/\/edoardogruppi\.github\.io/i`
+
+4. In the force value of "access-control-allow-origin" field, enter: `https://edoardogruppi.github.io`
+
+5. On the extensions panel click on the extension icon to run it.
+
+## Browser Compatibility
+
+If you're using a browser that does not support flag Unicode emojis (for example, certain versions of Microsoft Edge), you can install an extension to display flag emojis properly:
+[Extension for displaying flag emojis](https://www.reddit.com/r/MicrosoftEdge/comments/vubnp6/addon_to_display_flag_emojis_instead_of_country/).
+
 ## How to support?
 
 <a href="https://www.buymeacoffee.com/edoardogruppi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
@@ -13,10 +34,9 @@ Explore a world of cinema at your fingertips, all from your browser.
 Your support helps improve Watch Movies, making it even easier to discover films across global streaming services.
 Every coffee you buy contributes to a better, faster, and more accessible movie search experience for everyone. Thank you for being part of the journey!
 
-## Browser Compatibility
+## Future Plans
 
-If you're using a browser that does not support flag Unicode emojis (for example, certain versions of Microsoft Edge), you can install an extension to display flag emojis properly:
-[Extension for displaying flag emojis](https://www.reddit.com/r/MicrosoftEdge/comments/vubnp6/addon_to_display_flag_emojis_instead_of_country/).
+Currently, there are no plans to create a proxy server for CORS issues. However, if the project gains significant attention (e.g., through stars on GitHub) or receives support via donations, the idea of implementing a proxy server may be revisited.
 
 ## Contributing
 
